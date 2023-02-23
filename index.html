@@ -6,49 +6,69 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+        integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Scripture Reading List</title>
+
 </head>
 
 <body>
-    <h1 class="main-title">Scripture Reading List</h1>
-    <nav class="nav">
-        <h2>Completed Readings</h2>
-        <h2>About</h2>
-        <h2>How to go to Heaven</h2>
-    </nav>
-    <img class="bible-img" src="transparent-bible-12.png">
-    <input type="text"> <button type="button"> Add Verse </button>
-    <nav class="buttons-and-lists">
-        <ul class="current-reading-list">
-            <div class="verse-list-item">
-                <li>verse name 1</li>
+    <div class="container">
+        <header>
+            <img src="transparent-bible-12.png" alt="" />
+            <h1 id='app-title'>Scripture Reading List</h1>
+        </header>
+        <form id="item form">
+            <div class="form-control">
+                <input type="text" class="form-input" id="item-input" name="item" placeholder="Enter Scripture">
             </div>
-            <div class="verse-list-item">
-                <li>verse name 2</li>
+            <div class="form-control">
+                <button type="submit" class="btn">
+                    <i class="fa-solid fa-plus"></i> Add it
+                </button>
             </div>
-            <div class="verse-list-item">
-                <li>verse name 3</li>
-            </div>
-            <div class="verse-list-item">
-                <li>verse name 4</li>
-            </div>
-            <div class="verse-list-item">
-                <li>verse name 5</li>
-            </div>
+        </form>
+    </div>
 
-        </ul>
-        <nav class="buttons-list">
-            <button type="button"> Read it</button>
-            <button type="button"> Read it</button>
-            <button type="button"> Read it</button>
-            <button type="button"> Read it</button>
-            <button type="button"> Read it</button>
-        </nav>
-    </nav>
+    <div class="filter">
+        <input type="text" class="form-input-filter" id="filter" placeholder="Filter Items" />
+    </div>
 
 
-    <footer>Salvation is through Christ alone</footer>
+    <ul id="item list" class="items">
+        <li class="item">
+            Matthew 6:24
+            <button class="remove-item btn-link text-red">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </li>
+        <li class="item">
+            Ephesians 6:10-18
+            <button class="remove-item btn-link text-red">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </li>
+        <li class="item">
+            Matthew 18:22
+            <button class="remove-item btn-link text-red">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </li>
+        <li class="item">
+            James 4:4
+            <button class="remove-item btn-link text-red">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </li>
+    </ul>
 
+    <button id="clear" class="btn-clear">Clear all</button>
+    </div>
+
+
+    <script src="script.js"></script>
 </body>
+
 
 </html>
