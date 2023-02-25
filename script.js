@@ -1,38 +1,30 @@
-const form = document.getElementById('item-form');
+const itemForm = document.getElementById('item-form');
+const itemInput = document.getElementById('item-input');
+const itemList = document.getElementById('item-list');
 
-function onSubmit(e) {
+
+function addItem(e) {
     e.preventDefault();
+    const newItem = itemInput.value;
 
-
-    const item = document.getElementById('item-input').value;
-    const prior = document.getElementById('priority-input');
-
-
-    if (item === '' || prior === '0') {
-        alert('Please fill in all fields');
+    // Validate input
+    if (newItem === '') {
+        alert('Please add an item');
         return;
     }
 
-    console.log(item, prior.value);
-
-
-};
-
-function onSubmit2(e) {
-    e.preventDefault();
-
-    const formData = new FormData(form);
-
-    const item = formData.get('item');
-    const prior = formData.get('priority');
-
-    const entries = formData.entries();
-    // console.log(entries);
-
-    for (let entry of entries) {
-        console.log(entry[1]);
-    }
+    // Create list item
+    const li = document.createElement('li');
+    li.appendChild(document.createTextNode(newItem));
+    console.log(li);
 
 }
 
-form.addEventListener('submit', onSubmit2);
+function createButton(classes) {
+    const button = document.createElement('button');
+    button.className = classes;
+    return button;
+}
+
+//Event Listeners
+itemForm.addEventListener('submit', addItem);
