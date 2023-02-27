@@ -4,7 +4,11 @@ const itemList = document.getElementById('item-list');
 const clearBtn = document.getElementById('clear');
 const itemFilter = document.getElementById('filter');
 
-
+function displayItems() {
+    const itemsFromStorage = getItemsFromStore();
+    itemsFromStorage.forEach(item => addItemToDom(item));
+    checkUI();
+}
 
 function onAddItemSubmit(e) {
     e.preventDefault();
@@ -41,21 +45,6 @@ function addItemToDom(item) {
 
 }
 
-function addItemToStore(item) {
-    let itemsFromStorage;
-
-    if (localStorage.getItem('items') === null) {
-        itemsFromStorage = [];
-    } else {
-        itemsFromStorage = JSON.parse(localStorage.getItem('items'));
-    }
-
-    itemsFromStorage.push(item);
-
-    // convert to JSON string and set to local straoge
-
-    localStorage.setItem('items', JSON.stringify(itemsFromStorage))
-}
 
 function createButton(classes) {
     const button = document.createElement('button');
@@ -71,15 +60,56 @@ function createIcon(classes) {
     return icon;
 }
 
-function removeItem(e) {
+function addItemToStore(item) {
+    const itemsFromStorage = getItemsFromStore();
+
+    itemsFromStorage.push(item);
+
+    // convert to JSON string and set to local straoge
+
+    localStorage.setItem('items', JSON.stringify(itemsFromStorage))
+}
+
+function getItemsFromStore() {
+    let itemsFromStorage;
+
+    if (localStorage.getItem('items') === null) {
+        itemsFromStorage = [];
+    } else {
+        itemsFromStorage = JSON.parse(localStorage.getItem('items'));
+    }
+
+    return itemsFromStorage
+
+}
+
+function onItemClick(e) {
     if (e.target.parentElement.classList.contains
         ('remove-item')) {
-        if (confirm('Are you sure?')) {
-            e.target.parentElement.parentElement.remove();
-
-            checkUI();
-        }
+        removeItem(e.target.parentElement.parentElement);
     }
+
+}
+
+function removeItem(item) {
+    if (confirm('Are you sure?')) {
+        //remove item from DOM
+        item.remove();
+
+        //remove item from storage
+        removeItemFromStraoge(item.textContent);
+
+        checkUI();
+    }
+}
+
+function removeItemFromStraoge(item) {
+    let itemsFromStorage = getItemsFromStore();
+    //filter item to be removed
+    itemsFromStorage = itemsFromStorage.filter((i) => i !== item);
+
+    //re-set to localstorage
+    localStorage.setItem('items', JSON.stringify(itemsFromStorage));
 }
 
 
@@ -87,6 +117,10 @@ function clearItems(e) {
     while (itemList.firstChild) {
         itemList.removeChild(itemList.firstChild);
     }
+
+    //clear from localStorage
+
+    localStorage.removeItem('items');
 
     checkUI();
 
@@ -119,14 +153,21 @@ function checkUI() {
 
 }
 
+//Initialize app
 
-//Event Listeners
-itemForm.addEventListener('submit', onAddItemSubmit);
-itemList.addEventListener('click', removeItem);
-clearBtn.addEventListener('click', clearItems);
-itemFilter.addEventListener('input', filterItems);
+function init() {
+
+    //Event Listeners
+    itemForm.addEventListener('submit', onAddItemSubmit);
+    itemList.addEventListener('click', onItemClick);
+    clearBtn.addEventListener('click', clearItems);
+    itemFilter.addEventListener('input', filterItems);
+    document.addEventListener('DOMContentLoaded', displayItems);
+
+    checkUI();
 
 
-checkUI();
+}
 
+init();
 
