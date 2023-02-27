@@ -42,6 +42,10 @@ header h1 {
     padding: 20px;
 }
 
+.edit-mode {
+    color: #ccc;
+}
+
 /* form and input */
 
 .form-input {
